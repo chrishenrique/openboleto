@@ -93,30 +93,17 @@ class Sicoob extends BoletoAbstract
         $numero = self::zeroFill($this->getSequencial(), 7);
         $sequencia = $this->getAgencia() . self::zeroFill($this->getConvenio(), 10) . $numero;
         
-        $cont=0;
+        $map = [3, 1, 9, 7];
+         
         $calculoDv = '';
         for ($num = 0; $num <= strlen($sequencia); $num++) {
-            $cont++;
-            if ($cont == 1) {
-                // constante fixa Sicoob » 3197 
-                $constante = 3;
-            }
-            if ($cont == 2) {
-                $constante = 1;
-            }
-            if ($cont == 3) {
-                $constante = 9;
-            }
-            if ($cont == 4) {
-                $constante = 7;
-                $cont = 0;
-            }
-            $calculoDv = $calculoDv + (substr($sequencia, $num, 1) * $constante);
+            $idx = (($num / 4) - ((int)($num / 4))) * 4;
+            $calculoDv = $calculoDv + (substr($sequencia, $num, 1) * $map[$idx]);
         }
-        
+
         $resto = $calculoDv % 11;
         $dv = 11 - $resto;
-        if (($dv == 0) || ($dv == 1) || ($dv == 9)) { 
+        if ($dv >= 9) { 
             $dv = 0;
         }
 
