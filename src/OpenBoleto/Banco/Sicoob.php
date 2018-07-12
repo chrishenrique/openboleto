@@ -169,6 +169,9 @@ class Sicoob extends BoletoAbstract
      */
     public function getModalidade()
     {
+        $map = [1=>'01', 3=>'03'];
+        $this->modalidade = $map[$this->getCarteira()];
+
         return $this->modalidade;
     }
     
