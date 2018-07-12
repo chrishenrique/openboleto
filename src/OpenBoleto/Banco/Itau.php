@@ -117,7 +117,7 @@ class Itau extends BoletoAbstract
     protected function gerarNossoNumero()
     {
         $this->getCampoLivre(); // Força o calculo do DV.
-        $numero = self::zeroFill($this->getCarteira(), 3) . '/' . self::zeroFill($this->getSequencial(), 8);
+        $numero = self::zeroFill($this->getSequencial(), 7);
         $numero .= '-' . $this->carteiraDv;
 
         return $numero;
